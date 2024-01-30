@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import ba.sum.fsre.tereni.models.User;
 import org.springframework.web.bind.annotation.PostMapping;
+import jakarta.validation.Valid;
 @Controller
 public class UserController {
     @Autowired
@@ -19,7 +20,12 @@ public class UserController {
         return "users/add";
     }
     @PostMapping("users/add")
-    public String newUser(User user,BindingResult result,Model model){
+    public String newUser(@Valid User user,BindingResult result,Model model){
+        boolean errors=result.hasErrors();
+        if(errors){
+            model.addAttribute("user",user);
+            return "users/add";
+        }
         userRepo.save(user);
         return "redirect:/users/add";
     }
