@@ -1,11 +1,11 @@
 package ba.sum.fsre.tereni.models;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import javax.annotation.processing.Generated;
 
-@EntityScan
+@Entity
 public class User {
     @Id
     @GeneratedValue
