@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista Korisnika</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Lista Korisnika</h2>
+    <a href="/users/add" class="btn btn-success">Dodaj Novog Korisnika</a>
+
+    <form th:action="@{/logout}" method="post">
+        <button type="submit" class="btn btn-danger">Odjavi se</button>
+    </form>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>Email</th>
+            <th>Uloge</th>
+            <th>Akcije</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.ime}">Ime</td>
+            <td th:text="${user.prezime}">Prezime</td>
+            <td th:text="${user.email}">Email</td>
+            <td>
+                <span th:each="role : ${user.roles}" class="badge badge-primary mr-1" th:text="${role}"></span>
+            </td>
+            <td>
+                <div>
+                    <form th:action="@{/users/delete/{userId}(userId=${user.id})}" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-danger">Obriši</button>
+                    </form>
+                    <a th:href="@{/users/edit/{userId}(userId=${user.id})}" class="btn btn-primary d-inline-block">Uredi</a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
