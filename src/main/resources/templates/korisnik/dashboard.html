@@ -1,141 +1,32 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home | Gym App</title>
-    <!-- linkovi -->
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
-          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
-          crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <link rel="stylesheet" th:href="@{/css/main.css}"/>
-
-    <div th:replace="fragments/navbar :: navbar-css"/>
-
+    <title>Korisnikova Rezervacija Gym Terena</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<div th:insert="fragments/navbar :: navbar"></div>
-
-<div class="container">
-    <div class="title">
-        <div>
-            <a href="#" th:href="@{/}">
-                <i class="fa fa-undo" aria-hidden="true"> back</i>
-            </a></div>
-
-        <h1 th:text="'Booking ' + ${roomName}">
-            <i class="fas fa-clock"></i>
-        </h1>
-
-
-        <h3 th:text="${#temporals.format(choosedate.getDate(), 'dd-MM-yyyy') }"></h3>
-
-    </div>
-
-    <!--Promjena datuma-->
-
-    <div class="datechange">
-        <div class="col-12">
-            <div class="card-transparent">
-                <div class="card-body">
-                    <form class="inline" th:method="Post" th:object="${choosedate}" th:action="@{changedate}">
-
-                        <div class="input-group mb-3">
-                            <input id="dateInput" type="date" class="form-control" th:field="${choosedate.date}">
-                            <input class="btn btn-dark" type="submit" value="Change date"/>
-                        </div>
-                    </form>
-                </div>
-            </div>
+<div class="container mt-4">
+    <h1>Dobrodošli, Korisnik!</h1>
+    <form action="/logout" method="post"> <!-- Assuming the logout endpoint is "/logout" -->
+        <button type="submit" class="btn btn-danger">Odjavi se</button>
+    </form>
+    <div class="card mt-3">
+        <div class="card-body">
+            <h5 class="card-title">Rezervacija Gym Terena</h5>
+            <p class="card-text">Pregledajte dostupne gym terene i izvršite rezervaciju.</p>
+            <a href="#" class="btn btn-primary">Rezervacija Terena</a>
         </div>
     </div>
-
-
-    <div class="col-12">
-        <div class="row justify-content-md-center">
-
-            <!--Rezervacija-->
-
-            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4">
-
-                <table class="table table-striped table-hover">
-                    <thead class="thead-dark">
-                    <th>Slots</th>
-
-                    </thead>
-                    <tbody>
-                    <tr th:each="booking: ${bookingList}">
-
-                        <td th:if="${booking.id == 0}">
-                            <a th:href="'/bookingconfirmation/'+  ${booking.start}" type="button"
-                               class="btn btn-success"
-                               th:text="${booking.start}">Available</a>
-
-                        </td>
-                        <td type="button" class="btn btn-secondary disabled" th:unless="${booking.id == 0}">Booked
-                        </td>
-
-
-                    </tr>
-                    </tbody>
-
-                </table>
-            </div>
-
-            <!-- slobodni termini -->
-
-            <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4">
-                <table class="table table-striped">
-                    <thead class="thead-dark">
-                    <th>Availability</th>
-                    </thead>
-                    <tbody>
-                    <tr th:each="places: ${availablePlacesList}">
-                        <td>
-                            <span type="button" class="btn btn-outline-dark disabled" th:text="${places}"></span>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-
-            </div>
-
-            <!-- zauzeti termini -->
-
-            <div class="col-lg-6 col-md-4 col-sm-4 col-xs-4">
-                <table class="table table-striped">
-                    <thead class="thead-dark">
-                    <th>Users</th>
-                    </thead>
-                    <tbody>
-                    <tr th:each="listOfuserList: ${usersInRoom}">
-
-                        <td th:if="${listOfuserList.isEmpty()}">
-                        <span type="button" class="btn btn-outline-dark disabled">
-                            ---
-                        </span>
-
-                        </td>
-                        <td th:unless="${listOfuserList.isEmpty()}">
-                        <span type="button" class="btn btn-outline-dark disabled"
-                              th:each="users, iterStat: ${listOfuserList}"
-                              th:text="${users.login}">
-                        </span>
-
-                        </td>
-
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-
+    <div class="card mt-3">
+        <div class="card-body">
+            <h5 class="card-title">Moje Rezervacije</h5>
+            <p class="card-text">Pregledajte svoje trenutne i prošle rezervacije gym terena.</p>
+            <a href="#" class="btn btn-primary">Pregled Rezervacija</a>
         </div>
-
     </div>
+    <!-- Other functionalities related to gym reservations can be added here -->
 </div>
-<div th:replace="fragments/footer :: footer"/>
-
-
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
