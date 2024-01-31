@@ -43,7 +43,7 @@ public class User {
         this.prezime = prezime;
         this.email = email;
         this.potvrdaLozinke = potvrdaLozinke;
-        roles.add(Role.STUDENT);
+        roles.add(Role.KORISNIK);
     }
 
     public User() {
