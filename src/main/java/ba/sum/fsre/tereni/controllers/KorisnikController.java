@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class KorisnikController {
 
     @GetMapping
-    public String teacherDashboard(Model model) {
-        // Dodajte potrebne atribute u model
+    public String korisnikDashboard(Model model) {
         return "korisnik/dashboard";
     }
 
-    // Ostale metode specifične za korisnike
 }
