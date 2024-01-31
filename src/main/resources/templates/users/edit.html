@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Uredi Korisnika</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+  <h2>Uredi Korisnika</h2>
+  <form th:action="@{/users/edit/{userId}(userId=${user.id})}" th:object="${user}" method="post">
+    <div class="form-group">
+      <label for="ime">Ime:</label>
+      <input type="text" th:field="*{ime}" id="ime" class="form-control" required th:errorclass="is-invalid"/>
+      <div class="invalid-feedback" th:if="${#fields.hasErrors('ime')}" th:errors="*{ime}"></div>
+    </div>
+    <div class="form-group">
+      <label for="prezime">Prezime:</label>
+      <input type="text" th:field="*{prezime}" id="prezime" class="form-control" required th:errorclass="is-invalid"/>
+      <div class="invalid-feedback" th:if="${#fields.hasErrors('prezime')}" th:errors="*{prezime}"></div>
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" th:field="*{email}" id="email" class="form-control" required th:errorclass="is-invalid"/>
+      <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+    </div>
+    <div class="form-group">
+      <label for="lozinka">Lozinka:</label>
+      <input type="password" th:field="*{lozinka}" id="lozinka" class="form-control" required th:errorclass="is-invalid"/>
+      <div class="invalid-feedback" th:if="${#fields.hasErrors('lozinka')}" th:errors="*{lozinka}"></div>
+    </div>
+    <div class="form-group">
+      <label for="potvrdaLozinke">Potvrdite Lozinku:</label>
+      <input type="password" th:field="*{potvrdaLozinke}" id="potvrdaLozinke" class="form-control" th:errorclass="is-invalid"/>
+      <div class="invalid-feedback" th:if="${#fields.hasErrors('potvrdaLozinke')}" th:errors="*{potvrdaLozinke}"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="roles">Uloge:</label>
+      <select multiple th:field="*{roles}" id="roles" class="form-control">
+        <option value="ADMIN">Administrator</option>
+        <option value="KORISNIK">Korisnik</option>
+
+
+      </select>
+      <small class="form-text text-muted">Držite Ctrl (Cmd na Macu) za odabir više uloga.</small>
+    </div>
+    <button type="submit" class="btn btn-primary">Spremi</button>
+  </form>
+</div>
+</body>
+</html>
