@@ -9,7 +9,7 @@ import jakarta.validation.constraints.Size;
 import javax.annotation.processing.Generated;
 import java.util.HashSet;
 import java.util.Set;
-
+//kom
 @Entity
 public class User {
     @Id
@@ -19,7 +19,7 @@ public class User {
     @NotBlank(message = "Polje ime je obvezno")
     String ime;
 
-    @Size(min = 3, max = 20, message = "Polje ime mora biti izmđu 3 i 20 znakova.")
+    @Size(min = 3, max = 20, message = "Polje ime mora biti izmđu 3/ i 20 znakova.")
     @NotBlank(message = "Polje prezime je obvezno")
     String prezime;
 
