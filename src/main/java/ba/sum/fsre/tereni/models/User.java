@@ -1,10 +1,7 @@
 package ba.sum.fsre.tereni.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.AssertTrue;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import javax.annotation.processing.Generated;
 import java.util.HashSet;
