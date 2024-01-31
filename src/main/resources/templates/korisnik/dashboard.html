@@ -8,7 +8,7 @@
 <body>
 <div class="container mt-4">
     <h1>Dobrodošli, Korisnik!</h1>
-    <form action="/logout" method="post"> <!-- Assuming the logout endpoint is "/logout" -->
+    <form th:action="@{/logout}" method="post">
         <button type="submit" class="btn btn-danger">Odjavi se</button>
     </form>
     <div class="card mt-3">
@@ -25,7 +25,7 @@
             <a href="#" class="btn btn-primary">Pregled Rezervacija</a>
         </div>
     </div>
-    <!-- Other functionalities related to gym reservations can be added here -->
+
 </div>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
