@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Rezervacije</title>
+    <!-- Dodajte CSS i JS po potrebi -->
+</head>
+<body>
+<div th:fragment="content">
+    <h1>Lista Vaših Rezervacija</h1>
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Početak Rezervacije</th>
+                <th>Kraj Rezervacije</th>
+                <th>Korisnik</th>
+                <th>Teren</th>
+                <th>Cijena</th>
+                <th>Akcije</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="reservation : ${listReservation}">
+                <td th:text="${reservation.id}">ID</td>
+                <td th:text="${#temporals.format(reservation.startTime, 'dd.MM.yyyy HH:mm')}">Početak</td>
+                <td th:text="${#temporals.format(reservation.endTime, 'dd.MM.yyyy HH:mm')}">Kraj</td>
+                <td th:text="${reservation.user.ime} + ' ' + ${reservation.user.prezime}">Korisnik</td>
+                <td th:text="${reservation.facilities.sport}">Naziv terena</td>
+                <td th:text="${reservation.facilities.price}+ ' KM/Sat'">Cijena</td>
+                <td>
+                    <!-- Primjer akcije (prilagodite prema potrebi) -->
+                    <a th:href="@{/reservation/edit/{id}(id=${reservation.id})}">Uredi</a>
+                    <a th:href="@{/reservation/delete/{id}(id=${reservation.id})}" onclick="return confirm('Jeste li sigurni?')">Izbriši</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <a th:href="@{/facilities}">Dodaj novu rezervaciju</a>
+
+    <h2>Dodaj Novu Rezervaciju</h2>
+    <!-- Forma za dodavanje nove rezervacije (prilagodite action i metode) -->
+
+</div>
+</body>
+</html>

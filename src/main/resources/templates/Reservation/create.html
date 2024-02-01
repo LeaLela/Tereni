@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dodaj Novu Rezervaciju</title>
+</head>
+<body>
+<h2>Dodaj Novu Rezervaciju</h2>
+<form th:action="@{/reservation/add}" method="post">
+  <div>
+    <label for="startTime">Početak Rezervacije:</label>
+    <input type="datetime-local" id="startTime" name="startTime" required />
+  </div>
+  <div>
+    <label for="endTime">Kraj Rezervacije:</label>
+    <input type="datetime-local" id="endTime" name="endTime" required />
+  </div>
+  <!-- Skriveno polje za ID objekta (terena) -->
+  <input type="hidden" id="facilitiesId" name="facilitiesId" th:value="${facilitiid}" />
+
+  <button type="submit">Dodaj Rezervaciju</button>
+</form>
+</body>
+</html>
