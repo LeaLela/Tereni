@@ -1,0 +1,14 @@
+<!-- reservation-form.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!-- Dodajte odgovarajuće zaglavlje -->
+</head>
+<body>
+<h1>Rezervacija Terena</h1>
+<form th:action="@{/reservation}" th:object="${reservation}" method="post">
+  <!-- Dodajte polja za unos vremena rezervacije i potrebne informacije -->
+  <button type="submit">Rezerviši</button>
+</form>
+</body>
+</html>
