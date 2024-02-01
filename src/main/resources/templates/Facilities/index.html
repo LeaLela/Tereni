@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .promijeni {
+            background-color: lightgray;
+        }
+
+        div.promijeni:hover {
+            background-color: rgb(0, 32, 92);
+        }
+    </style>
+</head>
+<body>
+
+<div class="d-flex align-items-center justify-content-between">
+    <h1>Lista Terena</h1>
+
+</div>
+<div class="row">
+
+
+    <div class="col-md-4 mb-3" th:each="faciliti: ${listFacilities}">
+
+        <div class="card"
+             style="background-color: rgba(149, 145, 145, 0.1); box-shadow: 2px 2px rgba(189, 186, 186, 0.1);">
+            <img th:src="${'/'} + ${faciliti.image}" class="card-img-top img-fluid"
+                 style="width: 480px; height: 240px; object-fit: cover;" alt="">
+            <div class="card-body py-1">
+                <h5 style="font-size: 25px;text-align: center;" class="card-title text-primary" th:text="${faciliti.sport}"></h5>
+                <p style="font-size: 25px;text-align: center;" class="card-text text-info" th:text="${faciliti.description}"></p>
+                <div th:if="${role} == 'ADMIN'">
+                    <form th:action="@{/facilities/delete/{facilitiesId}(facilitiesId=${faciliti.id})}" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-danger">Obriši</button>
+                    </form>
+                </div>
+                <a th:href="@{/reservation/add/{id}(id=${faciliti.id})}" class="text-decoration-none ">
+
+                    <div
+                            class="card-footer background-color-black  rounded text-center text-strong promijeni" style="width: 400px; height: 60px;margin: auto">
+                        <p  style="font-size: 25px;text-align: center;" th:text="${faciliti.price}+ ' KM/Sat'"></p>
+                    </div>
+                </a>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
