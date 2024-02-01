@@ -1,10 +1,13 @@
 package ba.sum.fsre.tereni.controllers;
 
 import ba.sum.fsre.tereni.models.User;
+import ba.sum.fsre.tereni.models.UserDetails;
 import ba.sum.fsre.tereni.repositories.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.awt.*;
 import java.util.List;
 
 @Controller
@@ -21,9 +25,20 @@ public class UserController {
 
     @Autowired
     UserRepository userRepository;
+    @GetMapping("/home")
+    public String showHomePage(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email);
+        String role = userDetails.getMainRole();
+        model.addAttribute("role", role);
+        model.addAttribute("userDetails", userDetails);
+        model.addAttribute("activeLink", "Korisnici");
+        return "/index";
+    }
     @GetMapping("/users")
-    @PreAuthorize("hasAuthority('ADMIN')")
     public String listUsers (Model model){
         List<User> users = userRepository.findAll();
         model.addAttribute("users", users);
@@ -53,6 +68,38 @@ public class UserController {
             userRepository.save(user);
             return "redirect:/users";
         }
+    }
+    @GetMapping("/korisnik/edit")
+    @PreAuthorize("hasAuthority('KORISNIK')")
+    public String showEditUserFormForLogin( Model model) {
+        Authentication authentication =SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email);
+        Long userid = user.getId();
+        User osoba = userRepository.findById(userid)
+                .orElseThrow(() -> new IllegalArgumentException("Neispravan ID korisnika: " + userid));
+        model.addAttribute("user", osoba);
+        return "users/editUser";
+    }
+
+    @PostMapping("/korisnik/edit/{userId}")
+    @PreAuthorize("hasAuthority('Korisnik')")
+    public String updateUserLogin(@PathVariable Long userId, @ModelAttribute User user, Model model) {
+        // Provjerite postoji li korisnik s tim ID-om
+        User existingUser = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("Neispravan ID korisnika: " + userId));
+        existingUser.setIme(user.getIme());
+        existingUser.setPrezime(user.getPrezime());
+        existingUser.setEmail(user.getEmail());
+        // Lozinka
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String lozinka = encoder.encode(user.getLozinka());
+        existingUser.setLozinka(lozinka);
+        existingUser.setPotvrdaLozinke(lozinka);
+        existingUser.setRoles(user.getRoles());
+        // Postavite ostala polja po potrebi
+        userRepository.save(existingUser);
+        return "redirect:/home";
     }
 
     @PostMapping("/users/delete/{userId}")
