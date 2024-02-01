@@ -7,6 +7,5 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
-    @Query("SELECT r FROM Reservation r WHERE r.user = :user")
-    List<Reservation> findByUser(@Param("user")User user);
+    List<Reservation> findByUserId(Long userId);
 }

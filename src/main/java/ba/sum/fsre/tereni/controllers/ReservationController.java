@@ -1,62 +1,121 @@
 package ba.sum.fsre.tereni.controllers;
 
+import ba.sum.fsre.tereni.repositories.FacilitiesRepository;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import ba.sum.fsre.tereni.repositories.ReservationRepository;
 import ba.sum.fsre.tereni.models.User;
 import ba.sum.fsre.tereni.models.Reservation;
+import ba.sum.fsre.tereni.services.UserDetailsService;
+import ba.sum.fsre.tereni.models.*;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import ba.sum.fsre.tereni.repositories.UserRepository;
+
 @Controller
-@RequestMapping("/reservation")
 public class ReservationController {
+    @Autowired
+    UserRepository userRepository;
 
-    private final ReservationRepository reservationRepository;
-    private final UserRepository userRepository;
+    @Autowired
+    ReservationRepository reservationRepo;
 
-    public ReservationController(ReservationRepository reservationRepository, UserRepository userRepository) {
-        this.reservationRepository = reservationRepository;
-        this.userRepository = userRepository;
-    }
+    @Autowired
+    UserDetailsService UserDetailsService;
 
-    @GetMapping("/form")
-    public String showReservationForm(Model model) {
-        model.addAttribute("reservation", new Reservation());
-        return "reservation-form";
-    }
+    @Autowired
+    FacilitiesRepository facilitiesRepo;
 
-    @PostMapping("/make")
-    public String makeReservation(@ModelAttribute Reservation reservation) {
+    @GetMapping("/reservation")
+    public String listReservation(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        model.addAttribute("userDetails", userDetails);
+        model.addAttribute("activeLink", "Reservation");
 
-        User user = userRepository.findByEmail(currentPrincipalName);
+        boolean isAdmin = userDetails.getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ADMIN"));
+        boolean isUser = userDetails.getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("KORISNIK"));
 
-        reservation.setStartTime(LocalDateTime.now());
+        if (isAdmin) {
+            List<Reservation> listReservation = reservationRepo.findAll();
+            model.addAttribute("listReservation", listReservation);
+            return "Reservation/index";
+        } else if (isUser) {
+            String email = authentication.getName();
+            User user = userRepository.findByEmail(email);
+            Long userId = user.getId();
+            List<Reservation> listReservation = reservationRepo.findByUserId(userId);
+            model.addAttribute("listReservation", listReservation);
+            return "Reservation/index";
+        } else {
+            // Ako korisnik nema ni ROLE_ADMIN ni ROLE_USER ulogu
+            // Možete ovdje upravljati defaultnim ponašanjem
+            return "redirect:/";
+        }
+    }
+
+    @GetMapping("/reservation/add")
+    public String showCreateForm(Model model) {
+        List<Facilities> facilities = facilitiesRepo.findAll();
+        model.addAttribute("facilitiesList", facilities);
+        model.addAttribute("reservation", new Reservation());
+        return "Reservation/create";
+    }
+    @PostMapping("/reservation/add")
+    public String createReservation(@ModelAttribute("reservation") @Valid Reservation reservation, BindingResult result, Model model, @RequestParam("facilitiesId") Long facilitiesId) {
+        if (result.hasErrors()) {
+            return "Reservation/create"; // Ovdje vratite formu za kreiranje sa greškama validacije
+        }
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        User user = userRepository.findByEmail(currentUserName);
         reservation.setUser(user);
 
-        reservationRepository.save(reservation);
+        Facilities facilities = facilitiesRepo.findById(facilitiesId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid facilities Id:" + facilitiesId));
+        reservation.setFacilities(facilities);
 
-        return "redirect:/dashboard";
+        reservationRepo.save(reservation);
+        return "redirect:/reservation";
     }
 
-    @GetMapping("/dashboard")
-    public String showDashboard(Model model) {
+
+    @GetMapping("/reservation/add/{id}")
+    public String showCreate(@PathVariable("id") long id,Model model) {
+        List<Facilities> facilitiesList = facilitiesRepo.findAll();
+        model.addAttribute("facilitiesList", facilitiesList);
+        model.addAttribute("reservation", new Reservation());
+        model.addAttribute("facilitiid", id);
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        model.addAttribute("activeLink", "Reservation");
+        model.addAttribute("userDetails", userDetails);
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email);
+        Long userid = user.getId();
 
-        User user = userRepository.findByEmail(currentPrincipalName);
-        List<Reservation> reservations = reservationRepository.findByUser(user);
-        model.addAttribute("reservations", reservations);
 
-        return "dashboard";
+        model.addAttribute("username", userid);
+        return "Reservation/create";
+    }
+
+    @GetMapping("/reservation/delete/{id}")
+    public String delete(@PathVariable("id") long id, Model model) {
+        Reservation reservation = reservationRepo .findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid reservation Id:" + id));
+        reservationRepo.delete(reservation);
+        return "redirect:/reservation";
     }
 }
