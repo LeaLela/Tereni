@@ -55,10 +55,19 @@ public class UserDetails implements org.springframework.security.core.userdetail
         this.user = user;
     }
 
+    public long  getId(){return user.getId();}
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.name()))
                 .collect(Collectors.toList());
+    }
+
+    public String getMainRole() {
+        return user.getRoles().stream()
+                .map(Enum::name)
+                .findFirst()
+                .orElse("GUEST"); // Guest ako nema uloge
     }
 }
