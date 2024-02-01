@@ -11,7 +11,7 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        // Preuzmimanje uloge korisnika
+        // Preuzmimanje uloge korisnika.
         var authorities = authentication.getAuthorities();
 
         // preusmjeravanje s obzirom na to koja je uloga dodijeljena
