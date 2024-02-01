@@ -18,6 +18,17 @@ public class Reservation {
     @JoinColumn(name = "user_id")
     private User user;
 
+    public Facilities getFacilities() {
+        return facilities;
+    }
+
+    public void setFacilities(Facilities facilities) {
+        this.facilities = facilities;
+    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "facilities_id")
+    private Facilities facilities;
+
     public Reservation(Long id, LocalDateTime startTime, LocalDateTime endTime, User user) {
         this.id = id;
         this.startTime = startTime;
