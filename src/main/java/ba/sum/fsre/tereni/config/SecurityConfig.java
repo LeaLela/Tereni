@@ -57,6 +57,7 @@ public class SecurityConfig {
                 .loginPage("/auth/login")
                 .permitAll()
                 .usernameParameter("email")
+                .defaultSuccessUrl("/home", true)
                 .permitAll()
                 .and()
                 .logout()
