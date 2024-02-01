@@ -13,7 +13,6 @@ public class UserService {
     private UserRepository userRepository;
 
     public void saveUser(User user) {
-        // Additional validation and business logic can be added here
         user.getRoles().add(Role.KORISNIK);
         userRepository.save(user);
     }
