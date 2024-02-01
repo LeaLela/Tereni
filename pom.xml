@@ -11,8 +11,8 @@
 	<groupId>ba.sum.fsre</groupId>
 	<artifactId>eDnevnik</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>eDnevnik</name>
-	<description>eDnevnik</description>
+	<name>Tereni</name>
+	<description>Tereni</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
