@@ -1,4 +1,5 @@
 package ba.sum.fsre.tereni.controllers;
+import ba.sum.fsre.tereni.models.Role;
 import ba.sum.fsre.tereni.models.User;
 import ba.sum.fsre.tereni.repositories.UserRepository;
 import jakarta.validation.Valid;
@@ -35,6 +36,7 @@ public class AuthController {
             String passwordEncoded = encoder.encode(user.getLozinka());
             user.setLozinka(passwordEncoded);
             user.setPotvrdaLozinke(passwordEncoded);
+            user.getRoles().add(Role.KORISNIK);
             userRepo.save(user);
             return "redirect:/auth/login";
         }
