@@ -58,11 +58,14 @@ public class SecurityConfig {
                 .permitAll()
                 .usernameParameter("email")
                 .defaultSuccessUrl("/home", true)
+                .defaultSuccessUrl("/facilities", true)
+
                 .permitAll()
                 .and()
                 .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/").permitAll();
+                .logoutSuccessUrl("/").permitAll()
+        ;
 
         http.authenticationProvider(authenticationProvider());
         http.headers().frameOptions().sameOrigin();
