@@ -4,8 +4,8 @@ COPY pom.xml /home/app
 RUN mvn -f /home/app/pom.xml clean package -DskipTests
 FROM openjdk:18-jdk-slim
 COPY --from=build /home/app/target/Tereni-0.0.1-SNAPSHOT.jar
-/app/Tereni.jar
+/app/tereni.jar
 RUN mkdir /app/uploads
 WORKDIR /app
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/app/Tereni.jar"]
+ENTRYPOINT ["java","-jar","/app/tereni.jar"]
