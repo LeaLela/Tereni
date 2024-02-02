@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ba.sum.fsre</groupId>
-	<artifactId>Tereni</artifactId>
+	<artifactId>eDnevnik</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Tereni</name>
 	<description>Tereni</description>
