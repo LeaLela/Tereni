@@ -16,9 +16,9 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
 
         // preusmjeravanje s obzirom na to koja je uloga dodijeljena
         if (authorities.stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
-            response.sendRedirect("/home");
+            response.sendRedirect("/users");
         } else if (authorities.stream().anyMatch(a -> a.getAuthority().equals("KORISNIK"))) {
-            response.sendRedirect("/home");
+            response.sendRedirect("/reservation");
         } else {
             response.sendRedirect("/login");
         }
