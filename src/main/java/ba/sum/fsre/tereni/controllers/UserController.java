@@ -36,7 +36,7 @@ public class UserController {
         model.addAttribute("role", role);
         model.addAttribute("userDetails", userDetails);
         model.addAttribute("activeLink", "Korisnici");
-        return "Facilities/index";
+        return "/index";
     }
     @GetMapping("/users")
     public String listUsers (Model model){
