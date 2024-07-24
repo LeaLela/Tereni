@@ -2,7 +2,89 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Dodaj Novog Korisnika</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        :root {
+            --primary-color: #ff5e3a;
+            --secondary-color: #272e4f;
+            --text-color: #333;
+            --background-color: #f2f2f0;
+            --font-family: 'Arial', sans-serif;
+            --border-radius: 8px;
+        }
+
+        body {
+            font-family: var(--font-family);
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            margin: 20px;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            box-sizing: border-box;
+            margin-bottom: 5px;
+        }
+
+        .form-group .invalid-feedback {
+            color: #ff5e3a;
+            font-size: 12px;
+        }
+
+        .form-text {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background-color: #ff4a1a;
+        }
+    </style>
 </head>
 <body>
 <div class="container mt-5">

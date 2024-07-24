@@ -28,7 +28,7 @@ public class User {
     String lozinka;
 
     @NotBlank(message = "Molimo ponovite lozinku")
-    @Transient
+    @Transient //polje nije spremljeno u bazi
     String potvrdaLozinke;
 
     @ElementCollection(fetch = FetchType.EAGER)

@@ -1,9 +1,68 @@
  <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Uredi Korisnika</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-</head>
+ <head>
+     <meta charset="UTF-8">
+     <title>Uredi Korisnika</title>
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+     <style>
+         :root {
+             --primary-color: #ff5e3a;
+             --secondary-color: #272e4f;
+             --background-color: #f2f2f0;
+             --text-color: #333;
+             --font-family: 'Arial', sans-serif;
+             --border-radius: 8px;
+         }
+
+         body {
+             font-family: var(--font-family);
+             margin: 0;
+             padding: 0;
+             background-color: var(--background-color);
+             color: var(--text-color);
+         }
+
+         .container {
+             background-color: white;
+             border-radius: var(--border-radius);
+             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+             padding: 20px;
+             max-width: 600px;
+             margin: 50px auto;
+         }
+
+         h2 {
+             color: var(--primary-color);
+             text-align: center;
+             margin-bottom: 20px;
+         }
+
+         .form-group label {
+             font-weight: bold;
+         }
+
+         .form-control {
+             border-radius: var(--border-radius);
+         }
+
+         .btn-primary {
+             background-color: var(--primary-color);
+             border: none;
+             border-radius: var(--border-radius);
+             padding: 10px 20px;
+             cursor: pointer;
+             transition: background-color 0.3s ease;
+         }
+
+         .btn-primary:hover {
+             background-color: darkorange;
+         }
+
+         .invalid-feedback {
+             color: red;
+         }
+     </style>
+ </head>
 <body>
 <div class="container mt-5">
     <h2>Uredi Korisnika</h2>

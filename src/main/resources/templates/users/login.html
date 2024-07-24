@@ -1,11 +1,91 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prijava na sustav</title>
-    <!-- Include Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Include Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #ff5e3a;
+            --secondary-color: #272e4f;
+            --background-color: #f2f2f0;
+            --text-color: #333;
+            --border-radius: 8px;
+            --input-bg: #fff;
+            --input-border: #ddd;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        .card {
+            border-radius: var(--border-radius);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .card-title {
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control {
+            border-radius: var(--border-radius);
+            border-color: var(--input-border);
+            background-color: var(--input-bg);
+        }
+
+        .input-group-text {
+            background-color: var(--primary-color);
+            border: none;
+            color: white;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 10px 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: darkorange;
+        }
+
+        .alert-danger {
+            border-radius: var(--border-radius);
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .mt-3 {
+            margin-top: 1.5rem !important;
+        }
+
+        p a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        p a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
 <div class="container">

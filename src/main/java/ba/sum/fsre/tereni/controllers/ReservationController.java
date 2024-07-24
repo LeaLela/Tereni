@@ -59,7 +59,7 @@ public class ReservationController {
             return "Reservation/index";
         } else {
             // Ako korisnik nema ni ROLE_ADMIN ni ROLE_USER ulogu
-            // Možete ovdje upravljati defaultnim ponašanjem
+
             return "redirect:/";
         }
     }
