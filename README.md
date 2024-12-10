@@ -1,19 +1,19 @@
 # Tereni
 
-Tereni je web aplikacija za upravljanje rezervacijama sportskih terena (u ovom slučaju nogometnih i teniskih terna).
+Tereni is a web application for managing sports field reservations (in this case, football and tennis courts).
 
-## Pregled
+## Overview
 
-Aplikacija omogućava korisnicima da pregledavaju dostupne sportske terene, rezerviraju termine i prate svoje rezervacije.
+The app allows users to view available sports grounds, book appointments and track their reservations.
 
-## Funkcionalnosti
+## Features
 
-- Pregled dostupnih sportskih terena
-- Rezervacija termina za korištenje terena
-- Prikaz trenutnih i prošlih rezervacija korisnika
-- Uređivanje korisničkih informacija
+- Overview of available sports grounds
+- Book time slots for field usage
+- Display current and past reservations
+- Edit user information
 
-## Tehnologije
+## Technologies
 
 - **Spring Boot**
 - **Thymeleaf**
